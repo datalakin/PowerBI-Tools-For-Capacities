@@ -1,3 +1,11 @@
+# Modifications by Mihaly Kavasi
+This is a slightly updated version of the Power BI Realistic Load testing tool.
+Changes:
+- Created Test folder name is changed to Report Name + DateTime from just DateTime
+
+
+# Original Readme below:
+
 # Welcome To the Power BI Premium and Embedded Tools and Utilities Repository
 
 This repository is meant to host tools and utilities designed to improve all aspects of Power BI capacity managment and lifecycle.
