@@ -104,12 +104,13 @@ while($reportCount -gt 0)
     $reportSelection = Read-Host "Select report index from above"
 
     $reportUrl = $($reportList[$reportSelection-1].EmbedUrl) #Read-Host -Prompt 'Enter Report Embed URL'
-
+    $reportName = $($reportList[$reportSelection-1].Name)
     $reportList[$reportSelection-1]
 
 
     #Creating sub-folder to create a report set
-    $destinationDir = new-item -Path $workingDir -Name $(get-date -f MM-dd-yyyy_HH_mm_ss) -ItemType directory
+    $currentDate = get-date -f MM-dd-yy_HHmmss
+    $destinationDir = new-item -Path $workingDir -Name "$($reportName) - $($currentDate)" -ItemType directory
 
     #Copy master html file into the new directory
     Copy-Item $(Join-Path $workingDir $htmlFileName) -Destination $destinationDir
@@ -129,7 +130,6 @@ while($reportCount -gt 0)
     --$reportCount
     $increment++
 }
-
 Write-Host "Listing reports configuration" -ForegroundColor Yellow
 $reports | Format-Table -AutoSize
 
