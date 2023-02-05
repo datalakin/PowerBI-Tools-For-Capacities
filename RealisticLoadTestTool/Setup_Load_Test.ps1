@@ -27,7 +27,8 @@ $user = @{}
 # Regular expressions to match and update JSON files
 $token_regex = '(?<=PBIToken\":\s*\").*?(?=\")'
 $reportUrlRegex = '(?<=reportUrl\":\s*\").*?(?=\")'
-$noViewsRegex = '"numberOfViews":\s*(\d+),'
+$noViewsRegex = '"numberOfViews":\s*(\d+),' # MK
+$thinkTimeRegex = '"thinkTimeSeconds":\s*(\d+)' # MK
 
 
 #Function implementation to update token file
@@ -45,8 +46,9 @@ function UpdateTokenFile
 function UpdateReportParameters
 {
     $reportJSONFile = Get-Content $(Join-Path $workingDir 'PBIReport.JSON') -raw;
-    $new_ReportJSONFile = ($reportJSONFile -replace $reportUrlRegex,$args[0])
-    $new_ReportJSONFile = ($new_ReportJSONFile -replace $noViewsRegex,('"numberOfViews": ' + $args[1] + ','))
+    $new_ReportJSONFile = ($reportJSONFile -replace $reportUrlRegex,$args[0]);
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $noViewsRegex,('"numberOfViews": ' + $args[1] + ',')); # MK
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $thinkTimeRegex,('"thinkTimeSeconds": ' + $args[2])); # MK
     $new_ReportJSONFile
     $destinationDir
     $new_ReportJSONFile | set-content $(Join-Path $destinationDir 'PBIReport.JSON')
@@ -68,6 +70,7 @@ while($masterFilesExists)
 
 [int]$reportCount = Read-Host "How many reports you want to configure?"
 [int]$noViews = Read-Host "How many views you want to generate per report?"
+[int]$thinkTime = Read-Host "How much think time between interaction? (sec)"
 $increment = 1
 while($reportCount -gt 0)
 {
@@ -122,7 +125,7 @@ while($reportCount -gt 0)
     UpdateTokenFile
 
     #Function call to update report parameters file
-    UpdateReportParameters $reportUrl $noViews
+    UpdateReportParameters $reportUrl $noViews $thinkTime
     
     $reportConfig.WorkSpace = $($workSpaceList[$workSpaceSelection-1].Name)
     $reportConfig.ReportName = $($reportList[$reportSelection-1].Name)

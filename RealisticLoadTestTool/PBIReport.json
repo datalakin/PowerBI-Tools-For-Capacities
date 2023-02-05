@@ -1,6 +1,6 @@
 reportParameters= {
   "reportUrl": "",
-  "sessionRestart": 10,
+  "sessionRestart": 100,
   "numberOfViews": 10, 
 //insert filters here
 

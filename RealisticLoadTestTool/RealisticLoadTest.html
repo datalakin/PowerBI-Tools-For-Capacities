@@ -316,7 +316,7 @@
 						
                         layoutType: models.LayoutType[layoutType],
 						
-						panes: { //MK
+						panes: { //MK add bookmarks and filter panes
 									bookmarks: {
 										visible: true
 									},
@@ -492,7 +492,7 @@
 
     //full render cycle completion as may be the case with timer
 
-    if(report==undefined) EmbedReport();  
+    if(report==undefined && loadCounter < numberOfViews) EmbedReport();  //MK
 
 
 
