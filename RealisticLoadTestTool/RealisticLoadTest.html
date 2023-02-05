@@ -65,6 +65,7 @@
         //var embedUrl = 'https://app.powerbi.com/reportEmbed?reportId=b14f6f29-c5a0-407a-ae06-5c1ae8642285&groupId=7bbb6481-4081-4b0e-97d8-b5085dbb85f4';
 
         var embedUrl = reportParameters.reportUrl;
+		var numberOfViews = reportParameters.numberOfViews; //MK
 
         
 
@@ -239,8 +240,7 @@
 				var divCounter = document.getElementById('LoadReportCounter');
 
 				var avgDuration = Math.round(((((new Date()) - startTime) - (thinkTimeSeconds*loadCounter*1000)) / loadCounter)) / 1000;
-				divCounter.innerHTML = loadCounter
-				 + " refreshes<br/>" 
+				divCounter.innerHTML = loadCounter +"/"+ numberOfViews + " refreshes<br/>" //MK
 				 + avgDuration + " seconds average refresh time<br/>"
 				 + thinkTimeSeconds + " seconds think time";  
 			}
@@ -314,7 +314,18 @@
 
                         navContentPaneEnabled: true,
 						
-                        layoutType: models.LayoutType[layoutType]            
+                        layoutType: models.LayoutType[layoutType],
+						
+						panes: { //MK
+									bookmarks: {
+										visible: true
+									},
+									filters: {
+										expanded: true,
+										visible: true
+									}
+									
+								} //MK
 
                     }
 
@@ -405,7 +416,6 @@
 
                 sessionStorage.setItem('reloadCounter',loadCounter);      
                 sessionStorage.setItem('originalStartTime',startTime);      				
-
                 location.reload(false);
 
             };           

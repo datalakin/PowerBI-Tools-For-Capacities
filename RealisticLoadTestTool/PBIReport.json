@@ -1,11 +1,11 @@
 reportParameters= {
   "reportUrl": "",
-  "sessionRestart": 100,
+  "sessionRestart": 10,
   "numberOfViews": 10, 
 //insert filters here
 
 //
-"thinkTimeSeconds": 1
+"thinkTimeSeconds": 3
 };
 
 //see DemoLoadTest1/PBIReport.JSON and DemoLoadTest2/PBIReport.JSON for examples of how to define which page it should show, which bookmarks to click through, which filters and slicers to select
