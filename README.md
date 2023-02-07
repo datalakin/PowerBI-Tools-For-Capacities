@@ -2,7 +2,10 @@
 This is a slightly updated version of the Power BI Realistic Load testing tool.
 Changes:
 - Created Test folder name is changed to Report Name + DateTime from just DateTime
-
+- Added the ability to set the number of views (page refreshes) you want per window during setup
+- Added the ability to set the think time during setup
+- Added to ability to provide a filter file (example file added) during setup that will be added to the PowerBIReport file as filter parameters, so you do not need to go into the folders and manually modify each file
+- Added placeholders for Page Name and Bookmark in the PowerBIReport file template
 
 # Original Readme below:
 
