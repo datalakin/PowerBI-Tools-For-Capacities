@@ -1,0 +1,25 @@
+"filters": [
+    {
+        "filterTable":"DimProductCategory",
+        "filterColumn":"Product Category",
+        "isSlicer":true,
+        "filtersList":["Accessories","Bikes","Clothing"]
+    },
+    {
+        "filterTable":"DimSalesTerritory",
+        "filterColumn":"SalesTerritoryCountry",
+        "isSlicer":true,
+        "filtersList":[
+            "United States",
+            "France",
+            ["Australia","Canada","United Kingdom","United States"],
+            ["France","Germany"]
+        ]
+    },
+    {
+        "filterTable":"DimDate",
+        "filterColumn":"Quarter",
+        "isSlicer":false,
+        "filtersList":["Q1","Q2","Q3","Q4"]
+    }
+]

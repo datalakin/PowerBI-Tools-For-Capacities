@@ -336,9 +336,12 @@
 
             // Embed the report within the div element    
 			var justFlipBookmark = true;
+
 			if (bookmarkCounter == 0 || report == undefined)
 			{
-				report = powerbi.embed(embedDiv, config);
+				if (loadCounter < numberOfViews) { //MK view limit
+					report = powerbi.embed(embedDiv, config);
+				} //MK
 				justFlipBookmark = false;
 			}
 			
@@ -415,7 +418,7 @@
             if((loadCounter % sessionRestart) === 0) {
 
                 sessionStorage.setItem('reloadCounter',loadCounter);      
-                sessionStorage.setItem('originalStartTime',startTime);      				
+                sessionStorage.setItem('originalStartTime',startTime);     				
                 location.reload(false);
 
             };           

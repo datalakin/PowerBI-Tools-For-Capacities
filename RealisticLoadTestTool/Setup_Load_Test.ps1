@@ -20,6 +20,7 @@ $workingDir = $pwd.Path
 $masterFilesExists = $true
 $multiReportConfiguration = $true
 $htmlFileName = 'RealisticLoadTest.html'
+$filterFileName = 'Filters.json' #MK specify the name of the file that contains the filters
 $reportConfig = @{}
 $reports = @()
 $user = @{}
@@ -27,8 +28,9 @@ $user = @{}
 # Regular expressions to match and update JSON files
 $token_regex = '(?<=PBIToken\":\s*\").*?(?=\")'
 $reportUrlRegex = '(?<=reportUrl\":\s*\").*?(?=\")'
-$noViewsRegex = '"numberOfViews":\s*(\d+),' # MK
-$thinkTimeRegex = '"thinkTimeSeconds":\s*(\d+)' # MK
+$noViewsRegex = '"numberOfViews":\s*(\d+),' # MK find number of views parameter
+$filtersRegex = '"filters".*]' #MK find filters parameter
+$thinkTimeRegex = '"thinkTimeSeconds":\s*(\d+)' # MK find think time parameter
 
 
 #Function implementation to update token file
@@ -47,8 +49,11 @@ function UpdateReportParameters
 {
     $reportJSONFile = Get-Content $(Join-Path $workingDir 'PBIReport.JSON') -raw;
     $new_ReportJSONFile = ($reportJSONFile -replace $reportUrlRegex,$args[0]);
-    $new_ReportJSONFile = ($new_ReportJSONFile -replace $noViewsRegex,('"numberOfViews": ' + $args[1] + ',')); # MK
-    $new_ReportJSONFile = ($new_ReportJSONFile -replace $thinkTimeRegex,('"thinkTimeSeconds": ' + $args[2])); # MK
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $noViewsRegex,('"numberOfViews": ' + $args[1] + ',')); # MK set number of views based on user input
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $thinkTimeRegex,('"thinkTimeSeconds": ' + $args[2])); # MK set think time based on user input
+    $filtersJSONFile = Get-Content $(Join-Path $workingDir $filterFileName) -raw; #MK get filters from the filter file
+    #Write-Host $filtersJSONFile; #MK test to check filter file content
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $filtersRegex, $filtersJSONFile); # MK add predefined filters to the reportJSON filter
     $new_ReportJSONFile
     $destinationDir
     $new_ReportJSONFile | set-content $(Join-Path $destinationDir 'PBIReport.JSON')
