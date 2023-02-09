@@ -227,7 +227,6 @@
         function EmbedReport() {
 
 
-
             if(errorTracker.length != 0) return;
 
 
@@ -238,11 +237,18 @@
 			if (loadCounter > 0)
 			{
 				var divCounter = document.getElementById('LoadReportCounter');
-
+				var filtertext = JSON.stringify(filterValue.filters); //MK
+				var slicertext = JSON.stringify(filterValue.slicers); //MK
+				var currentDuration = Math.round(((new Date()) - restartTime)) / 1000; //MK
 				var avgDuration = Math.round(((((new Date()) - startTime) - (thinkTimeSeconds*loadCounter*1000)) / loadCounter)) / 1000;
-				divCounter.innerHTML = loadCounter +"/"+ numberOfViews + " refreshes<br/>" //MK
+				divCounter.innerHTML = "Report id: " + reportId + "<br>"//MK
+				+ loadCounter +"/"+ numberOfViews + " refreshes<br/>" //MK
+				+ currentDuration + " seconds refresh time<br/>" //MK
 				 + avgDuration + " seconds average refresh time<br/>"
-				 + thinkTimeSeconds + " seconds think time";  
+				 + thinkTimeSeconds + " seconds think time<br>" 
+				 + "Applied filters: " + filtertext + "<br>" //MK
+				 + "Applied slicers:"  + slicertext;  //MK
+				 CefSharp.PostMessage(divCounter.innerHTML); //Writeback
 			}
 
             // Get models (models contains enums)
@@ -336,6 +342,7 @@
 
             // Embed the report within the div element    
 			var justFlipBookmark = true;
+			var restartTime = new Date(); //MK current refresh time calculation
 
 			if (bookmarkCounter == 0 || report == undefined)
 			{
@@ -362,7 +369,7 @@
                     + event.detail.detailedMessage + " "
 
                     + event.detail.errorCode;
-
+					
 
 
                 report.off("error");
@@ -370,7 +377,7 @@
                 //setting error tracker to stop the execution
 
                 errorTracker = event.detail.message;
-
+				CefSharp.PostMessage(divCounter.innerHTML); //Writeback
             });           
 
 

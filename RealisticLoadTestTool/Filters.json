@@ -1,25 +1,18 @@
 "filters": [
     {
-        "filterTable":"DimProductCategory",
-        "filterColumn":"Product Category",
+        "filterTable":"Calendar",
+        "filterColumn":"Year",
         "isSlicer":true,
-        "filtersList":["Accessories","Bikes","Clothing"]
+        "filtersList":[2020,2021,2019]
     },
     {
-        "filterTable":"DimSalesTerritory",
-        "filterColumn":"SalesTerritoryCountry",
+        "filterTable":"Local Area District",
+        "filterColumn":"LA Name",
         "isSlicer":true,
         "filtersList":[
-            "United States",
-            "France",
-            ["Australia","Canada","United Kingdom","United States"],
-            ["France","Germany"]
+            "Eastleigh",
+            "Fareham",
+            ["East Hampshire","Winchester","New Forest"]
         ]
-    },
-    {
-        "filterTable":"DimDate",
-        "filterColumn":"Quarter",
-        "isSlicer":false,
-        "filtersList":["Q1","Q2","Q3","Q4"]
     }
 ]

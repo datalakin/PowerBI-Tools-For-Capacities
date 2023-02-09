@@ -58,7 +58,8 @@ foreach ($destinationDir in $directories)
         while($loopCounter -gt 0)
         {
         $reportHtmlFile
-            start chrome "--user-data-dir=""ChromeProfiles\Profile$profile"" --disable-default-apps --new-window ""$($reportHtmlFile)"""            
+            #start chrome "--user-data-dir=""ChromeProfiles\Profile$profile"" --disable-default-apps --new-window ""$($reportHtmlFile)"""            
+            start .\ChromeWriteBack\ChromeWriteBack """$($reportHtmlFile)"" ""$destinationDir"".txt" #Writeback
             --$loopCounter
             $profile = ($profile+1) % $numberOfPhysicalCores;
             sleep -Seconds 5
@@ -69,7 +70,8 @@ foreach ($destinationDir in $directories)
 "Press enter when load test is complete: "
 pause
 "closing all chrome windows"
-start taskkill "/IM chrome.exe /FI ""USERNAME eq $env:UserName"""
+#start taskkill "/IM chrome.exe /FI ""USERNAME eq $env:UserName"""
+start taskkill "/IM ChromeWriteback.exe /FI ""USERNAME eq $env:UserName""" #Writeback
 "Setting registry $registryPath back"
 Remove-ItemProperty -Path $registryPath -Name $name
 Remove-ItemProperty -Path $registryPath -Name $name2
