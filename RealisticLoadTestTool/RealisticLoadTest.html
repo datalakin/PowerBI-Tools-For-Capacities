@@ -41,6 +41,7 @@
     <script>
 
 		var startTime = new Date();
+		var runTime = startTime; //MK
 
         //TODO: provide your PBIE token; it will be valid for 60 min only!
 
@@ -237,15 +238,21 @@
 			if (loadCounter > 0)
 			{
 				var divCounter = document.getElementById('LoadReportCounter');
+				var pageNametext = JSON.stringify(pageName); //MK
+				var bookmarktext = JSON.stringify(bookmarkValue); //MK
 				var filtertext = JSON.stringify(filterValue.filters); //MK
 				var slicertext = JSON.stringify(filterValue.slicers); //MK
-				var currentDuration = Math.round(((new Date()) - restartTime)) / 1000; //MK
+				var currentDuration = Math.round(((new Date()) - runTime) - (thinkTimeSeconds*1000)) / 1000; //MK
+				runTime = new Date(); //MK
 				var avgDuration = Math.round(((((new Date()) - startTime) - (thinkTimeSeconds*loadCounter*1000)) / loadCounter)) / 1000;
 				divCounter.innerHTML = "Report id: " + reportId + "<br>"//MK
+				+ "Run Time: " + runTime + "<br>"//MK
 				+ loadCounter +"/"+ numberOfViews + " refreshes<br/>" //MK
 				+ currentDuration + " seconds refresh time<br/>" //MK
 				 + avgDuration + " seconds average refresh time<br/>"
 				 + thinkTimeSeconds + " seconds think time<br>" 
+				 + "Displayed page: "  + pageNametext + "<br>" //MK
+				 + "Applied bookmark: "  + bookmarktext + "<br>" //MK
 				 + "Applied filters: " + filtertext + "<br>" //MK
 				 + "Applied slicers:"  + slicertext;  //MK
 				 CefSharp.PostMessage(divCounter.innerHTML); //Writeback
@@ -342,7 +349,6 @@
 
             // Embed the report within the div element    
 			var justFlipBookmark = true;
-			var restartTime = new Date(); //MK current refresh time calculation
 
 			if (bookmarkCounter == 0 || report == undefined)
 			{
