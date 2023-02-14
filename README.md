@@ -6,6 +6,9 @@ Changes:
 - Added the ability to set the think time during setup
 - Added to ability to provide a filter file (example file added) during setup that will be added to the PowerBIReport file as filter parameters, so you do not need to go into the folders and manually modify each file
 - Added placeholders for Page Name and Bookmark in the PowerBIReport file template
+- Displaying current run time, current refresh time, page name, filters and slicers applied
+- Outputs the displayed values in a txt
+- Additional files needed to work
 
 # Original Readme below:
 
