@@ -20,7 +20,9 @@ $workingDir = $pwd.Path
 $masterFilesExists = $true
 $multiReportConfiguration = $true
 $htmlFileName = 'RealisticLoadTest.html'
-$filterFileName = 'Filters.json' #MK specify the name of the file that contains the filters
+$filtersFileName = 'Filters.json' #MK specify the name of the file that contains the filters
+$pageFileName = 'Page.json' #MK specify the name of the file that contains the page
+$bookmarksFileName = 'Bookmarks.json' #MK specify the name of the file that contains the bookmarks
 $reportConfig = @{}
 $reports = @()
 $user = @{}
@@ -28,9 +30,12 @@ $user = @{}
 # Regular expressions to match and update JSON files
 $token_regex = '(?<=PBIToken\":\s*\").*?(?=\")'
 $reportUrlRegex = '(?<=reportUrl\":\s*\").*?(?=\")'
+$pageIDRegex = '\/\/"pageName".*"' # MK find page id parameter
+$bookmarksRegex = '\/\/"bookmarkList".*]' # MK find bookmarks parameter
 $noViewsRegex = '"numberOfViews":\s*(\d+),' # MK find number of views parameter
 $filtersRegex = '"filters".*]' #MK find filters parameter
 $thinkTimeRegex = '"thinkTimeSeconds":\s*(\d+)' # MK find think time parameter
+$projectNameRegex = '"projectName":.*"'# MK find project name parameter
 
 
 #Function implementation to update token file
@@ -50,10 +55,15 @@ function UpdateReportParameters
     $reportJSONFile = Get-Content $(Join-Path $workingDir 'PBIReport.JSON') -raw;
     $new_ReportJSONFile = ($reportJSONFile -replace $reportUrlRegex,$args[0]);
     $new_ReportJSONFile = ($new_ReportJSONFile -replace $noViewsRegex,('"numberOfViews": ' + $args[1] + ',')); # MK set number of views based on user input
-    $new_ReportJSONFile = ($new_ReportJSONFile -replace $thinkTimeRegex,('"thinkTimeSeconds": ' + $args[2])); # MK set think time based on user input
-    $filtersJSONFile = Get-Content $(Join-Path $workingDir $filterFileName) -raw; #MK get filters from the filter file
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $thinkTimeRegex,('"thinkTimeSeconds": '+ $args[2])); # MK set think time based on user input
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $projectNameRegex,('"projectName": "' + $args[3] + '"')); # MK set think time based on user input
+    $filtersJSONFile = Get-Content $(Join-Path $workingDir $filtersFileName) -raw; #MK get filters from the filter file
+    $pageJSONFile = Get-Content $(Join-Path $workingDir $pageFileName) -raw; #MK get filters from the filter file
+    $bookmarksJSONFile = Get-Content $(Join-Path $workingDir $bookmarksFileName) -raw; #MK get filters from the filter file
     #Write-Host $filtersJSONFile; #MK test to check filter file content
     $new_ReportJSONFile = ($new_ReportJSONFile -replace $filtersRegex, $filtersJSONFile); # MK add predefined filters to the reportJSON filter
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $pageIDRegex, $pageJSONFile);
+    $new_ReportJSONFile = ($new_ReportJSONFile -replace $bookmarksRegex, $bookmarksJSONFile);
     $new_ReportJSONFile
     $destinationDir
     $new_ReportJSONFile | set-content $(Join-Path $destinationDir 'PBIReport.JSON')
@@ -76,6 +86,7 @@ while($masterFilesExists)
 [int]$reportCount = Read-Host "How many reports you want to configure?"
 [int]$noViews = Read-Host "How many views you want to generate per report?"
 [int]$thinkTime = Read-Host "How much think time between interaction? (sec)"
+$projectName = Read-Host "What is the name of the project?"
 $increment = 1
 while($reportCount -gt 0)
 {
@@ -130,7 +141,7 @@ while($reportCount -gt 0)
     UpdateTokenFile
 
     #Function call to update report parameters file
-    UpdateReportParameters $reportUrl $noViews $thinkTime
+    UpdateReportParameters $reportUrl $noViews $thinkTime $projectName
     
     $reportConfig.WorkSpace = $($workSpaceList[$workSpaceSelection-1].Name)
     $reportConfig.ReportName = $($reportList[$reportSelection-1].Name)

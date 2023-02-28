@@ -5,13 +5,14 @@ reportParameters= {
 //"pageName": "",
 //
 //insert bookmarks here
-//"bookmarkList": ["Bookmark1d7f5476b91147a87955","Bookmark6a5ec58ce57e4f389ce5"], //sample
+//"bookmarkList": [], 
 //
   "numberOfViews": 10, 
 //insert filters here
   "filters" : [],
 //
-"thinkTimeSeconds": 3
+"thinkTimeSeconds": 3,
+"projectName": ""
 };
 
 //see DemoLoadTest1/PBIReport.JSON and DemoLoadTest2/PBIReport.JSON for examples of how to define which page it should show, which bookmarks to click through, which filters and slicers to select

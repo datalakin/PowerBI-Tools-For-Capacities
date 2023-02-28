@@ -68,6 +68,7 @@
 
         var embedUrl = reportParameters.reportUrl;
 		var numberOfViews = reportParameters.numberOfViews; //MK
+		var projectName = reportParameters.projectName; //MK
 
         
 
@@ -217,7 +218,7 @@
 
 
         var errorTracker = "";
-
+		var bookmarkValue = "";
        
 
         var report;
@@ -246,7 +247,8 @@
 				var currentDuration = Math.round(((new Date()) - runTime) - (thinkTimeSeconds*1000)) / 1000; //MK
 				runTime = new Date(); //MK
 				var avgDuration = Math.round(((((new Date()) - startTime) - (thinkTimeSeconds*loadCounter*1000)) / loadCounter)) / 1000;
-				divCounter.innerHTML = "Report id: " + reportId + "<br>"//MK
+				divCounter.innerHTML = "Project Name: " + projectName + "<br>"
+				+ "Report id: " + reportId + "<br>"//MK
 				+ "Instance id: " + instanceID + "<br>"//MK
 				+ "Run Time: " + runTime + "<br>"//MK
 				+ loadCounter +"/"+ numberOfViews + " refreshes<br/>" //MK
@@ -254,7 +256,7 @@
 				 + avgDuration + " seconds average refresh time<br/>"
 				 + thinkTimeSeconds + " seconds think time<br>" 
 				 + "Displayed page: "  + pageNametext + "<br>" //MK
-				 + "Applied bookmark: "  + bookmarktext + "<br>" //MK
+				 + "Applied bookmark: "  + bookmarkValue + "<br>" //MK
 				 + "Applied filters: " + filtertext + "<br>" //MK
 				 + "Applied slicers:"  + slicertext;  //MK
 				 CefSharp.PostMessage(divCounter.innerHTML); //Writeback
@@ -266,7 +268,7 @@
 
 			var filterCounter = Math.floor(loadCounter / bookmarkList.length) % filtersCount;
 			var bookmarkCounter = loadCounter % bookmarkList.length;
-			var bookmarkValue = bookmarkList[bookmarkCounter];
+			bookmarkValue = bookmarkList[bookmarkCounter];
 			if (filtersList != null)
 			{
 				if (isNaN(filterCounter))
