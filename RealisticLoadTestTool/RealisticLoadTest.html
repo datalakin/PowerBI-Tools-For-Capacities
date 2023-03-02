@@ -247,8 +247,8 @@
 				var currentDuration = Math.round(((new Date()) - runTime) - (thinkTimeSeconds*1000)) / 1000; //MK
 				runTime = new Date(); //MK
 				var avgDuration = Math.round(((((new Date()) - startTime) - (thinkTimeSeconds*loadCounter*1000)) / loadCounter)) / 1000;
-				divCounter.innerHTML = "Project Name: " + projectName + "<br>"
-				+ "Report id: " + reportId + "<br>"//MK
+				divCounter.innerHTML = 
+				"Report id: " + reportId + "<br>"//MK
 				+ "Instance id: " + instanceID + "<br>"//MK
 				+ "Run Time: " + runTime + "<br>"//MK
 				+ loadCounter +"/"+ numberOfViews + " refreshes<br/>" //MK
@@ -258,7 +258,8 @@
 				 + "Displayed page: "  + pageNametext + "<br>" //MK
 				 + "Applied bookmark: "  + bookmarkValue + "<br>" //MK
 				 + "Applied filters: " + filtertext + "<br>" //MK
-				 + "Applied slicers:"  + slicertext;  //MK
+				 + "Applied slicers:"  + slicertext + "<br>"  //MK
+				 + "Project Name: " + projectName + "<br>"; //MK
 				 CefSharp.PostMessage(divCounter.innerHTML); //Writeback
 			}
 
