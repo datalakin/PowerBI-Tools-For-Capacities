@@ -127,12 +127,13 @@ while($reportCount -gt 0)
 
     $reportUrl = $($reportList[$reportSelection-1].EmbedUrl) #Read-Host -Prompt 'Enter Report Embed URL'
     $reportName = $($reportList[$reportSelection-1].Name)
+    $workspaceName = $($workspaceList[$workspaceSelection-1].Name)
     $reportList[$reportSelection-1]
 
 
     #Creating sub-folder to create a report set
     $currentDate = get-date -f MM-dd-yy_HHmmss
-    $destinationDir = new-item -Path $workingDir -Name "$($reportName) - $($currentDate)" -ItemType directory
+    $destinationDir = new-item -Path $workingDir -Name "$($workspaceName) - $($reportName) - $($currentDate)" -ItemType directory
 
     #Copy master html file into the new directory
     Copy-Item $(Join-Path $workingDir $htmlFileName) -Destination $destinationDir
