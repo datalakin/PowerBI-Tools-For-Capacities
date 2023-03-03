@@ -9,6 +9,8 @@ This is an updated version of the Power BI Realistic Load testing tool.
 - Added the ability to use a Page and Bookmarks files to setup the Test
 - Added a Parameter Catalogue folder to store the filter for each report
 - Added a Test Results folder to store the output (files are not yet saved there, need to be manually moved.)
+- Changed the demo files to new ones representing the current state
+- Added Output analysis file. (Need to be repointed once downloaded, before use)
 
 # Version 0.6
 - Added to ability to provide a filter file (example file added) during setup that will be added to the PowerBIReport file as filter parameters, so you do not need to go into the folders and manually modify each file
