@@ -1,14 +1,27 @@
 # Modifications by Mihaly Kavasi
-This is a slightly updated version of the Power BI Realistic Load testing tool.
-Changes:
+This is an updated version of the Power BI Realistic Load testing tool.
+
+# Version 0.7
+- Added the ability to define the Project Name for the test
+- Created Test folder name is changed to Workspace Name + Report Name + DateTime from just DateTime
+- Output file name is also modified to Workspace Name + Report Name + DateTime
+- Selected bookmarks are now displaying correctly
+- Added the ability to use a Page and Bookmarks files to setup the Test
+- Added a Parameter Catalogue folder to store the filter for each report
+- Added a Test Results folder to store the output (files are not yet saved there, need to be manually moved.)
+
+# Version 0.6
+- Added to ability to provide a filter file (example file added) during setup that will be added to the PowerBIReport file as filter parameters, so you do not need to go into the folders and manually modify each file
+- Outputs the displayed values in a txt
+- Additional files needed to work
+- Added a randomly generated instance id to differentiate between browser session.
+- Displaying current run time, current refresh time, page name, filters and slicers applied
+
+# Version 0.5
 - Created Test folder name is changed to Report Name + DateTime from just DateTime
 - Added the ability to set the number of views (page refreshes) you want per window during setup
 - Added the ability to set the think time during setup
-- Added to ability to provide a filter file (example file added) during setup that will be added to the PowerBIReport file as filter parameters, so you do not need to go into the folders and manually modify each file
 - Added placeholders for Page Name and Bookmark in the PowerBIReport file template
-- Displaying current run time, current refresh time, page name, filters and slicers applied
-- Outputs the displayed values in a txt
-- Additional files needed to work
 
 # Original Readme below:
 
