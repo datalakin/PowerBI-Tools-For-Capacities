@@ -1,5 +1,12 @@
-# Modifications by Mihaly Kavasi
-This is an updated version of the Power BI Realistic Load testing tool.
+# Modifications by Matt Lakin
+This is an updated version of the Power BI Realistic Load testing tool. 
+
+# Version 0.8
+- Added ability to define and store "Number of users", and included in results
+- Added ability to define and store "capacity SKU" parameter, and included in results
+
+Below versions are forked from Mihaly Kivasi:
+https://github.com/KavasiMihaly/PowerBI-Tools-For-Capacities
 
 # Version 0.7
 - Added the ability to define the Project Name for the test
