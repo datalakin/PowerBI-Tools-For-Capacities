@@ -1,4 +1,4 @@
-﻿################################################################################################################################################################################
+################################################################################################################################################################################
 # Script executes the load test
 # If run with no parameters, it will execute the load test found in each subfolder:
 #  .\Run_Load_Test_Only.ps1
@@ -11,8 +11,11 @@
 
 $htmlFileName = 'RealisticLoadTest.html'
 $workingDir = $pwd.Path
+#$workingDir = "$($workingDir)\$($workspaceName) - $($reportName)"
 "This script finds all subdirectories with $htmlFileName files and runs a specifies number of instances of each."
-$instances = [int] $(Read-Host -Prompt 'Enter number of instances to initiate for each report')
+
+$instances = [int] $(Read-Host -Prompt 'Confirm number of instances to initiate for each report')
+
 $numberOfPhysicalCores = (Get-WmiObject –class Win32_processor).NumberOfCores;
 if ($numberOfPhysicalCores.Length)
 {
@@ -33,9 +36,9 @@ New-Item -Path $registryPath -Force | Out-Null
 New-ItemProperty -Path $registryPath -Name $Name -Value $value -PropertyType DWORD -Force | Out-Null
 New-ItemProperty -Path $registryPath -Name $Name2 -Value $value -PropertyType DWORD -Force | Out-Null
 
-
 $profile = 0;
 $directories = @();
+
 foreach ($destinationDir in $args)
 {
     $directories += ,$destinationDir;
@@ -48,7 +51,6 @@ if ($directories.Length -eq 0)
     }
 }
 
-
 foreach ($destinationDir in $directories)
 {
     $reportHtmlFile = $(Join-Path (Join-Path $workingDir $destinationDir) $htmlFileName);
@@ -59,12 +61,14 @@ foreach ($destinationDir in $directories)
         {
         $reportHtmlFile
             #start chrome "--user-data-dir=""ChromeProfiles\Profile$profile"" --disable-default-apps --new-window ""$($reportHtmlFile)"""            
-            start .\ChromeWriteBack\ChromeWriteBack """$($reportHtmlFile)"" ""$destinationDir"".txt" #Writeback
+            start .\ChromeWriteBack\ChromeWriteBack """$($reportHtmlFile)"" ""$destinationDir"".csv" #Writeback
             --$loopCounter
             $profile = ($profile+1) % $numberOfPhysicalCores;
             sleep -Seconds 5
         }
     }
+
+    #Move-Item -Path "$($pwd.Path)\$destinationDir.csv" -Destination "$($workingDir)\$destinationDir.csv" -Force
 }
 
 "Press enter when load test is complete: "
