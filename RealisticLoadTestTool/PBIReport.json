@@ -7,12 +7,14 @@ reportParameters= {
 //insert bookmarks here
 //"bookmarkList": [], 
 //
-  "numberOfViews": 10, 
+  "numberOfViews": 1,
+  "numberOfUsers": 1,
+  "thinkTimeSeconds": 1,
+  "sku": "",
 //insert filters here
   "filters" : [],
 //
-"thinkTimeSeconds": 3,
-"projectName": ""
+	"projectName": ""
 };
 
 //see DemoLoadTest1/PBIReport.JSON and DemoLoadTest2/PBIReport.JSON for examples of how to define which page it should show, which bookmarks to click through, which filters and slicers to select

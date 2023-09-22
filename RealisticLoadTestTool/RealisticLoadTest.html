@@ -69,9 +69,11 @@
         var embedUrl = reportParameters.reportUrl;
 		var numberOfViews = reportParameters.numberOfViews; //MK
 		var projectName = reportParameters.projectName; //MK
+		var numberOfUsers = reportParameters.numberOfUsers; //ML
+		var sku = reportParameters.sku; //ML
+		
 
         
-
         //TODO: replace with the seed filter value for your specific report filter 
 
         var filterStart = reportParameters.filterStart;
@@ -258,8 +260,10 @@
 				 + "Displayed page: "  + pageNametext + "<br>" //MK
 				 + "Applied bookmark: "  + bookmarkValue + "<br>" //MK
 				 + "Applied filters: " + filtertext + "<br>" //MK
-				 + "Applied slicers:"  + slicertext + "<br>"  //MK
-				 + "Project Name: " + projectName + "<br>"; //MK
+				 + "Applied slicers:"  + slicertext + "<br>" //MK
+				 + "Project Name: " + projectName + "<br>" //MK
+				 + "Number of users: " + numberOfUsers + "<br>"//ML
+				 + "Capacity SKU: " + sku ; //ML
 				 CefSharp.PostMessage(divCounter.innerHTML); //Writeback
 			}
 
