@@ -44,12 +44,16 @@ $skuRegex = '"sku":.*"' # MK find sku parameter
 function UpdateTokenFile
 {     
     $accessToken = Get-PowerBIAccessToken -AsString | % {$_.replace("Bearer ","").Trim()}
+    $accessToken
     $tokenJSONFile = Get-Content $(Join-Path $workingDir 'PBIToken.JSON') -raw;
+    $tokenJSONFile
     $new_TokenJSONFile = ($tokenJSONFile -replace $token_regex,$accessToken)
     $new_TokenJSONFile
     $destinationDir
     $new_TokenJSONFile | set-content $(Join-Path $destinationDir 'PBIToken.JSON')
+    $new_TokenJSONFile
 }
+
 
 #Function implementation to update report parameters file
 function UpdateReportParameters
@@ -158,8 +162,10 @@ while($reportCount -gt 0)
 
     $reportUrl = $($reportList[$reportSelection-1].EmbedUrl) #Read-Host -Prompt 'Enter Report Embed URL'
     $reportName = $($reportList[$reportSelection-1].Name)
-    $workspaceName = $($workspaceList[$workspaceSelection-1].Name)
+    $workspaceName = $($workspaceList[$workspaceSelection-1].Name).Replace('[','').Replace(']','')
     $reportList[$reportSelection-1]
+
+    
 
 
     #Creating sub-folder to create a report set

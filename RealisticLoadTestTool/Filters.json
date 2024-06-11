@@ -1,18 +1,1 @@
-"filters": [
-    {
-        "filterTable":"Calendar",
-        "filterColumn":"Year",
-        "isSlicer":true,
-        "filtersList":[2020,2021,2019]
-    },
-    {
-        "filterTable":"Local Area District",
-        "filterColumn":"LA Name",
-        "isSlicer":true,
-        "filtersList":[
-            "Eastleigh",
-            "Fareham",
-            ["East Hampshire","Winchester","New Forest"]
-        ]
-    }
-]
+"filters": []
